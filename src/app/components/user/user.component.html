@@ -1,0 +1,36 @@
+<h3>Listado de Usuarios</h3>
+
+@if(users.length > 0){
+<table class="table table-hover table-striped text-center align-middle my-2">
+  <thead>
+    <tr>
+      <!-- <th>ID</th> -->
+      <th>USUARIO</th>
+      <th>NOMBRE</th>
+      <th>APELLIDO</th>
+      <th>EMAIL</th>
+      <th>ACTUALIZAR</th>
+      <th>ELIMINAR</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (user of users; track $index) {
+    <tr>
+      <!-- <td>{{ user.id }}</td> -->
+      <td>{{ user.userName }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td><button class="btn btn-secondary btn-sm" (click)="onSelectedUser(user)">
+        <i class="bi bi-pencil-square"></i></button>
+      </td>
+      <td><button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">
+        <i class="bi bi-trash"></i></button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+}@else {
+<div class="alert alert-warning">No hay registros en el sistema!</div>
+}
