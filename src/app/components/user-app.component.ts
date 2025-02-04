@@ -44,17 +44,21 @@ export class UserAppComponent implements OnInit {
   addUser() {
     this.sharingData.newUserEventEmitter.subscribe(user => {   
       if (user.id > 0) {
-        this.users = this.users.map(u => {
-          if (u.id == user.id) {
-            return { ...user };
-          }
-          return u;
+        this.service.update(user).subscribe(userUpdated => {
+          this.users = this.users.map(u => {
+            if (u.id == userUpdated.id) {
+              return { ...userUpdated };
+            }
+            return u;
+          })
         })
-      } else {
-        //this.users = [...this.users, { ...user, id: new Date().getTime() }];
-        this.users = [...this.users, { ...user, id: this.users[this.users.length - 1].id + 1}];
+      } else { 
+        this.service.create(user).subscribe(userNew => {
+          console.log(userNew);
+          this.users = [...this.users, { ...userNew }];
+        })
       }
-      this.router.navigate(['/users'], { state: { users: this.users } });
+      this.router.navigate(['/users']);
       Swal.fire({
         title: 'Guardado!',
         text: 'Usuario guardado con exito!',
@@ -76,10 +80,15 @@ export class UserAppComponent implements OnInit {
         confirmButtonText: 'Eliminar',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.users = this.users.filter((user) => user.id != id);
-          this.router.navigate(['/users/create'], { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/users'], { state: { users: this.users } });
-          })
+
+          this.service.remove(id).subscribe(() => {
+            this.users = this.users.filter((user) => user.id != id);
+            this.router.navigate(['/users/create'], { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/users']);
+            });
+
+          });
+          
           Swal.fire({
             title: 'Eliminado!',
             text: 'Se ha eliminado el usuario',

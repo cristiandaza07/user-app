@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { SharingDataService } from '../../services/sharing-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'user-form',
@@ -15,7 +16,8 @@ export class UserFormComponent implements OnInit{
 
   constructor(
     private sharingData: SharingDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private service: UserService
   )
   {
     this.user = new User();
@@ -29,6 +31,7 @@ export class UserFormComponent implements OnInit{
 
       if (id > 0) {
         this.sharingData.findUserByIdEventEmitter.emit(id);
+        //this.service.findById(id).subscribe(user => this.user = user);
       }
     })
   }
@@ -36,7 +39,6 @@ export class UserFormComponent implements OnInit{
   onSubmit(userForm: NgForm): void {
     if (userForm.valid) {
       this.sharingData.newUserEventEmitter.emit(this.user);
-      console.log(this.user);
     }
     userForm.reset();
     userForm.resetForm();
