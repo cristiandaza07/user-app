@@ -44,26 +44,50 @@ export class UserAppComponent implements OnInit {
   addUser() {
     this.sharingData.newUserEventEmitter.subscribe(user => {   
       if (user.id > 0) {
-        this.service.update(user).subscribe(userUpdated => {
-          this.users = this.users.map(u => {
-            if (u.id == userUpdated.id) {
-              return { ...userUpdated };
+        this.service.update(user).subscribe(
+          {
+            next: (userUpdated) => {
+              this.users = this.users.map(u => {
+                if (u.id == userUpdated.id) {
+                  return { ...userUpdated };
+                }
+                return u;
+              })
+              this.router.navigate(['/users'], { state: { users: this.users } });
+
+              Swal.fire({
+                title: 'Actualizado!',
+                text: 'Usuario editado con exito!',
+                icon: 'success',
+              });
+            },
+            error: (err) => {
+              if (err.status == 400) {
+                this.sharingData.errorsUserFormUserEventEmitter.emit(err.error);
+              }
             }
-            return u;
-          })
-        })
-      } else { 
-        this.service.create(user).subscribe(userNew => {
-          console.log(userNew);
-          this.users = [...this.users, { ...userNew }];
-        })
+          });
+      } else {
+        this.service.create(user).subscribe(
+          {
+            next: (userNew) => {
+              console.log(userNew);
+              this.users = [...this.users, { ...userNew }];
+              this.router.navigate(['/users'], { state: { users: this.users } });
+
+              Swal.fire({
+                title: 'Creado!',
+                text: 'Usuario creado con exito!',
+                icon: 'success',
+              });
+            },
+            error: (err) => {
+              if (err.status == 400) {
+                this.sharingData.errorsUserFormUserEventEmitter.emit(err.error);
+              }
+            }
+          });
       }
-      this.router.navigate(['/users']);
-      Swal.fire({
-        title: 'Guardado!',
-        text: 'Usuario guardado con exito!',
-        icon: 'success',
-      });
   
     })
   }
@@ -84,11 +108,11 @@ export class UserAppComponent implements OnInit {
           this.service.remove(id).subscribe(() => {
             this.users = this.users.filter((user) => user.id != id);
             this.router.navigate(['/users/create'], { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/users']);
+              this.router.navigate(['/users'], {state: { users: this.users }});
             });
 
           });
-          
+
           Swal.fire({
             title: 'Eliminado!',
             text: 'Se ha eliminado el usuario',

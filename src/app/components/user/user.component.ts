@@ -17,10 +17,18 @@ export class UserComponent implements OnInit{
   constructor(
     private router: Router,
     private service: UserService,
-    private sharingData: SharingDataService) {}
+    private sharingData: SharingDataService)
+  {
+    if (this.router.getCurrentNavigation()?.extras.state) {
+      this.users = this.router.getCurrentNavigation()?.extras.state!['users']
+    }
+  }
 
   ngOnInit(): void {
-    this.service.findAll().subscribe(users => this.users = users)
+    if (this.users == undefined || this.users == null || this.users.length == 0) {
+      console.log('Consulta finAll()');
+      this.service.findAll().subscribe(users => this.users = users);
+    }
   }
 
   onRemoveUser(id: number): void {

@@ -5,7 +5,9 @@ import { User } from '../../models/user';
 @Component({
   selector: 'navbar',
   imports: [RouterModule],
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  @Input() users: User[] = [];
 }

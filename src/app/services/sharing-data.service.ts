@@ -13,6 +13,8 @@ export class SharingDataService {
 
   private _selectUserEventEmitter = new EventEmitter();
 
+  private _errorsUserFormUserEventEmitter = new EventEmitter();
+
   constructor() {}
 
   get newUserEventEmitter(): EventEmitter<User> {
@@ -31,4 +33,7 @@ export class SharingDataService {
     return this._selectUserEventEmitter;
   }
 
+  get errorsUserFormUserEventEmitter() {
+    return this._errorsUserFormUserEventEmitter;
+  }
 }
