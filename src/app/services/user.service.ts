@@ -14,13 +14,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<User[]> {
-    //Forma corta
     return this.http.get<User[]>(this.url);
+  }
 
-    //Forma larga
-    /*return this.http.get('http://localhost:8080/api/users').pipe(
-      map((users: any) => users as User[]),
-    );*/
+  findAllPagiable(page: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/page/${page}`);
   }
 
   findById(id: number): Observable<User> {
