@@ -1,6 +1,9 @@
-  <button class="btn btn-outline-secondary mb-2" [routerLink]="['/users/create']">Crear Usuario</button>
 
 <h3>Listado de Usuarios</h3>
+
+@if(admin){
+ <button class="btn btn-outline-secondary mb-2" [routerLink]="['/users/create']">Crear Usuario</button>
+}
 
 @if(users.length > 0){
 <table class="table table-hover table-striped text-center align-middle my-2">
@@ -11,8 +14,11 @@
       <th>NOMBRE</th>
       <th>APELLIDO</th>
       <th>EMAIL</th>
-      <th>ACTUALIZAR</th>
-      <th>ELIMINAR</th>
+      @if(admin){
+        <th>ACTUALIZAR</th>
+        <th>ELIMINAR</th>
+      }
+
     </tr>
   </thead>
   <tbody>
@@ -23,12 +29,14 @@
       <td>{{ user.name }}</td>
       <td>{{ user.lastName }}</td>
       <td>{{ user.email }}</td>
-      <td><button class="btn btn-secondary btn-sm" [routerLink]="['/users/edit', user.id]">
-        <i class="bi bi-pencil-square"></i></button>
-      </td>
-      <td><button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">
-        <i class="bi bi-trash"></i></button>
-      </td>
+      @if(admin){
+        <td><button class="btn btn-secondary btn-sm" [routerLink]="['/users/edit', user.id]">
+          <i class="bi bi-pencil-square"></i></button>
+        </td>
+        <td><button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">
+          <i class="bi bi-trash"></i></button>
+        </td>
+      }
     </tr>
     }
   </tbody>

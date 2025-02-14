@@ -92,7 +92,8 @@
                       }
                   } -->
               </div>
-              <div>
+              @if(user.id == 0){
+                <div>
                   <input
                       placeholder="Contraseña"
                       name="password"
@@ -115,7 +116,8 @@
                           <div class="text-danger">La contraseña es de minimo 5 caracteres</div>
                       }
                   } -->
-              </div>
+                </div>
+              }
           
               <div>
                   <button 

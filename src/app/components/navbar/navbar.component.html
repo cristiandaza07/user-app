@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-md bg-body-tertiary px-3">
   <div class="container-fluid">
     <a class="navbar-brand fw-semibold" href="#">
       <i class="bi bi-people-fill"></i> APLICACIÓN DE USUARIOS</a>
@@ -11,12 +11,23 @@
           <a class="nav-link sombreado" routerLink="/users" routerLinkActive="active" [state]="{users, paginator}">
             <i class="bi bi-house-door-fill"></i> Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link sombreado" routerLink="/users/create" routerLinkActive="active">
-            <i class="bi bi-person-fill-add"></i> Crear Usuario</a>
-        </li>
-
+        @if(admin){
+          <li class="nav-item">
+            <a class="nav-link sombreado" routerLink="/users/create" routerLinkActive="active">
+              <i class="bi bi-person-fill-add"></i> Crear Usuario</a>
+          </li>
+        }
       </ul>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAuth">
+      <span class="nav-item nav-link text-secondary">
+        @if(login.isAuth){
+          {{login.user.userName}}
+          <button class="btn btn-outline-secondary ms-2" (click)="handlerLogout()">Cerrar Sesión</button> 
+        }@else{
+          <a class="btn btn-outline-secondary" [routerLink]="['/login']">Iniciar Sesión</a>
+        }
+      </span>
     </div>
   </div>
 </nav>
