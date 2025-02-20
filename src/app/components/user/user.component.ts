@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { SharingDataService } from '../../services/sharing-data.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { AuthService } from '../../services/auth.service';
+import { Store } from '@ngrx/store';
+import { load, remove } from '../../store/users.actions';
 
 @Component({
   selector: 'user',
@@ -18,35 +20,40 @@ export class UserComponent implements OnInit{
   paginator: any = {};
 
   constructor(
+    private store: Store<{ users: any }>,
     private router: Router,
     private service: UserService,
     private sharingData: SharingDataService,
     private authService: AuthService,
-    private route: ActivatedRoute)
-  {
-    if (this.router.getCurrentNavigation()?.extras.state) {
-      this.users = this.router.getCurrentNavigation()?.extras.state!['users'];
-      this.paginator = this.router.getCurrentNavigation()?.extras.state!['paginator'];
-    }
+    private route: ActivatedRoute){
+
+    this.store.select('users').subscribe(state => {
+      this.users = state.users;
+      this.paginator = state.paginator;
+    });
   }
 
   ngOnInit(): void {
-    if (this.users == undefined || this.users == null || this.users.length == 0) {
-      console.log('Consulta finAll()');
-      this.route.paramMap.subscribe(params => {
-        const page = +(params.get('page') || '0');
-        console.log(page);
-        this.service.findAllPagiable(page).subscribe((pabeable) => {
-          this.users = pabeable.content as User[]
-          this.paginator = pabeable;
-          this.sharingData.pageUsersEventEmitter.emit({users: this.users, paginator: this.paginator});
-        });
-      })
-    }
+    this.route.paramMap.subscribe(params => {
+      const page = +(params.get('page') || '0');
+      this.store.dispatch(load({ page }));
+    })
   }
 
   onRemoveUser(id: number): void {
-    this.sharingData.idUserEventEmitte.emit(id);
+    Swal.fire({
+      title: '¿Estás seguro de eliminar?',
+      text: 'El usuario se eliminará permanentemente',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch(remove({ id })); 
+      }
+    });
   }
 
   onSelectedUser(user: User): void {
