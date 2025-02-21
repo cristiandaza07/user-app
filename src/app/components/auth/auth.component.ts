@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
-import { SharingDataService } from '../../services/sharing-data.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Store } from '@ngrx/store';
+import { login } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'auth',
@@ -12,7 +15,8 @@ import { SharingDataService } from '../../services/sharing-data.service';
 export class AuthComponent {
   user: User;
 
-  constructor(private sharingData: SharingDataService) {
+  constructor(
+    private store: Store<{auth: any}>) {
     this.user = new User();
   }
 
@@ -22,9 +26,10 @@ export class AuthComponent {
         'Error de validación',
         'Usuario y contraseña son obligatorios',
         'error'
-      );  
+      );
     } else {
-      this.sharingData.handlerLoginEventEmitter.emit({ userName: this.user.userName, password: this.user.password });
+      console.log(this.user)
+      this.store.dispatch(login({ userName: this.user.userName, password: this.user.password }));
     }
   }
 }

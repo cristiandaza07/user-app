@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -7,15 +7,14 @@ import { SharingDataService } from '../../services/sharing-data.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
-import { load, remove } from '../../store/users.actions';
+import { load, remove } from '../../store/users/users.actions';
 
 @Component({
   selector: 'user',
   imports: [RouterModule, PaginatorComponent],
-  templateUrl: './user.component.html'
+  templateUrl: './user.component.html',
 })
-export class UserComponent implements OnInit{
-
+export class UserComponent implements OnInit {
   users: User[] = [];
   paginator: any = {};
 
@@ -25,19 +24,19 @@ export class UserComponent implements OnInit{
     private service: UserService,
     private sharingData: SharingDataService,
     private authService: AuthService,
-    private route: ActivatedRoute){
-
-    this.store.select('users').subscribe(state => {
+    private route: ActivatedRoute
+  ) {
+    this.store.select('users').subscribe((state) => {
       this.users = state.users;
       this.paginator = state.paginator;
     });
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const page = +(params.get('page') || '0');
       this.store.dispatch(load({ page }));
-    })
+    });
   }
 
   onRemoveUser(id: number): void {
@@ -51,7 +50,7 @@ export class UserComponent implements OnInit{
       confirmButtonText: 'Eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.store.dispatch(remove({ id })); 
+        this.store.dispatch(remove({ id }));
       }
     });
   }

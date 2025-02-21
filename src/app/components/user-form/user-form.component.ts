@@ -3,51 +3,54 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { add, find, resetUser, setUserForm, update } from '../../store/users.actions';
+import {
+  add,
+  find,
+  resetUser,
+  setUserForm,
+  update,
+} from '../../store/users/users.actions';
 
 @Component({
   selector: 'user-form',
   imports: [FormsModule],
   templateUrl: './user-form.component.html',
 })
-export class UserFormComponent implements OnInit{
-
+export class UserFormComponent implements OnInit {
   user: User;
-  errors: any = []
+  errors: any = [];
 
   constructor(
-    private store: Store<{users: any}>,
-    private route: ActivatedRoute,
-  )
-  {
+    private store: Store<{ users: any }>,
+    private route: ActivatedRoute
+  ) {
     this.user = new User();
 
-    this.store.select('users').subscribe(state => {
+    this.store.select('users').subscribe((state) => {
       this.errors = state.errors;
-      this.user = {... state.user}
-    })
+      this.user = { ...state.user };
+    });
   }
 
   ngOnInit(): void {
     this.store.dispatch(resetUser());
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id: number = +(params.get('id') || '0');
 
       if (id > 0) {
         this.store.dispatch(find({ id }));
       }
-    })
+    });
   }
 
   onSubmit(userForm: NgForm): void {
-
     //this.store.dispatch(setUserForm({ user: this.user }));
     if (this.user.id > 0) {
       //Actualizamos un usuario existente
       this.store.dispatch(update({ userUpdated: this.user }));
     } else {
       //Creamos nuevo usuario
-      this.store.dispatch(add({userNew: this.user}))
+      this.store.dispatch(add({ userNew: this.user }));
     }
   }
 
