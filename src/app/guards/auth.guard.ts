@@ -12,10 +12,6 @@ export const authGuard: CanActivateFn = async(route, state) => {
       router.navigate(['/login']);
       return false;
     }
-    if (!service.isAdmin()) {
-      router.navigate(['/forbiden']);
-      return false;
-    }
     return true;
   }
 

@@ -1,0 +1,26 @@
+    <div class="row d-flex justify-content-center my-2">
+        <div class="col-md-6">
+            <div class="card p-3 py-4">
+                <div class="text-center">
+                    <div>
+                        <h5 class="mt-2 mb-0 fw-semibold">{{user.userName}}</h5>
+                        @if(user.admin){
+                            <span class="badge rounded-pill text-bg-secondary">Administrador</span>
+                        }@else {
+                            <span class="badge rounded-pill text-bg-secondary">Usuario</span>
+                        }
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/men/14.jpg" width="100" class="rounded-circle">
+                </div>
+                <div class="text-center mt-3">
+                    <h5 class="mt-2 mb-0 fw-semibold">{{user.name}} {{user.lastName}}</h5>
+                    <span>{{user.email}}</span>
+                    <div class="px-4 mt-1">
+                        <p class="fonts">Passionate designer with over 5 years of experience in creating user-centric
+                            digital experiences. Aims to create meaningful stories through design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

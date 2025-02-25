@@ -44,13 +44,15 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(userForm: NgForm): void {
-    //this.store.dispatch(setUserForm({ user: this.user }));
-    if (this.user.id > 0) {
-      //Actualizamos un usuario existente
-      this.store.dispatch(update({ userUpdated: this.user }));
-    } else {
-      //Creamos nuevo usuario
-      this.store.dispatch(add({ userNew: this.user }));
+    if (userForm.valid) { 
+      //this.store.dispatch(setUserForm({ user: this.user }));
+      if (this.user.id > 0) {
+        //Actualizamos un usuario existente
+        this.store.dispatch(update({ userUpdated: this.user }));
+      } else {
+        //Creamos nuevo usuario
+        this.store.dispatch(add({ userNew: this.user }));
+      }
     }
   }
 

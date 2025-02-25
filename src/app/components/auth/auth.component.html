@@ -1,13 +1,15 @@
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">Iniciar Sesión</h5>
-    </div>
-        <div class="card-body">
-            <form (ngSubmit)="onSubmit()">
-                <input name="userName" class="form-control my-3 w-25" placeholder="Usuario" [(ngModel)]="user.userName">
-                <input name="password" type="password" class="form-control my-3 w-25" placeholder="Contraseña" [(ngModel)]="user.password">
-                <button class="btn btn-primary" type="submit">Ingresar</button>
-            </form>
-        </div>
+<div class="container-sm border border-2 rounded-2 mt-5 animate__animated animate__zoomIn">
+    <h3 class="text-center fw-semibold my-3">Iniciar Sesión</h3>
     
+    <form (ngSubmit)="onSubmit()">
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input name="userName" type="text" class="form-control" placeholder="Usuario" [(ngModel)]="user.userName">
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input name="password" type="password" class="form-control" placeholder="Contraseña" [(ngModel)]="user.password">
+        </div>
+        <button class="btn btn-primary w-100 mb-3" type="submit">Ingresar</button>
+    </form>
 </div>

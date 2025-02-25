@@ -5,6 +5,7 @@ import {
   find,
   findAll,
   findAllPageable,
+  findByUsername,
   load,
   removeSuccess,
   resetUser,
@@ -69,6 +70,14 @@ export const usersReducer = createReducer(
       users: state.users,
       paginator: state.paginator,
       user: state.users.find((user) => user.id == id) || new User(),
+      errors: state.errors,
+    };
+  }),
+  on(findByUsername, (state, { username }) => {
+    return {
+      users: state.users,
+      paginator: state.paginator,
+      user: state.users.find((user) => user.userName == username) || new User(),
       errors: state.errors,
     };
   }),

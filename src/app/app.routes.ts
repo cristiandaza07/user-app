@@ -5,6 +5,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { authGuard } from './guards/auth.guard';
 import { Forbiden403Component } from './components/forbiden403/forbiden403.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -21,14 +23,19 @@ export const routes: Routes = [
     component: UserComponent,
   },
   {
+    path: 'users/user/:username',
+    component: UserDetailsComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'users/create',
     component: UserFormComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard],
   },
   {
     path: 'users/edit/:id',
     component: UserFormComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard],
   },
   {
     path: 'login',
@@ -36,6 +43,6 @@ export const routes: Routes = [
   },
   {
     path: 'forbiden',
-    component: Forbiden403Component
-  }
+    component: Forbiden403Component,
+  },
 ];

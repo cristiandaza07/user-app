@@ -1,0 +1,7 @@
+.sticky-bottom-footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #6da4db; /* O el color de fondo que prefieras */
+  z-index: 100; /* Asegura que esté por encima de otros elementos */
+}

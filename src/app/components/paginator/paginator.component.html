@@ -1,22 +1,25 @@
 @if (paginator.totalPages > 1) {
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link" [routerLink]="[url, 0]"><i class="bi bi-chevron-bar-left"></i></a>
-        </li>
-        @if (paginator.number > 0) {
-            <li class="page-item">
-                <a class="page-link" [routerLink]="[url, paginator.number - 1]"><i class="bi bi-chevron-compact-left"></i></a>
-            </li>
-        }
-        @if (paginator.number < paginator.totalPages - 1) {
-            <li class="page-item">
-                <a class="page-link" [routerLink]="[url, paginator.number + 1]"><i class="bi bi-chevron-compact-right"></i></a>
-            </li>
-        }
-        <li class="page-item">
-            <a class="page-link" [routerLink]="[url, paginator.totalPages - 1]">
-                <i class="bi bi-chevron-bar-right"></i>
-            </a>
-        </li>
-    </ul>
+    <div class="d-flex justify-content-end">
+            <p class="fs-6 fw-lighter mx-1 p-2 align-middle">Pagina {{paginator.pageable.pageNumber +1}} de {{paginator.totalPages}}</p>    
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" [routerLink]="[url, 0]"><i class="bi bi-chevron-bar-left"></i></a>
+                </li>
+                @if (paginator.number > 0) {
+                    <li class="page-item">
+                        <a class="page-link" [routerLink]="[url, paginator.number - 1]"><i class="bi bi-chevron-compact-left"></i></a>
+                    </li>
+                }
+                @if (paginator.number < paginator.totalPages - 1) {
+                    <li class="page-item">
+                        <a class="page-link" [routerLink]="[url, paginator.number + 1]"><i class="bi bi-chevron-compact-right"></i></a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link" [routerLink]="[url, paginator.totalPages - 1]">
+                        <i class="bi bi-chevron-bar-right"></i>
+                    </a>
+                </li>
+            </ul>
+    </div>
 }

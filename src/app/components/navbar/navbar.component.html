@@ -1,31 +1,38 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary px-3">
+<nav class="navbar navbar-expand-md px-3 appearance">
   <div class="container-fluid">
-    <a class="navbar-brand fw-semibold" href="#">
-      <i class="bi bi-people-fill"></i> APLICACIÓN DE USUARIOS</a>
+    <a class="navbar-brand fw-semibold text-white" href="#">
+      <i class="bi bi-people-fill "></i> APLICACIÓN DE USUARIOS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav fw-semibold">
         <li class="nav-item">
-          <a class="nav-link sombreado" routerLink="/users" routerLinkActive="active" >
+          <a class="nav-link sombreado text-white" [routerLink]="['/users']">
             <i class="bi bi-house-door-fill"></i> Inicio</a>
         </li>
         @if(admin){
           <li class="nav-item">
-            <a class="nav-link sombreado" routerLink="/users/create" routerLinkActive="active">
+            <a class="nav-link sombreado text-white" [routerLink]="['/users/create']">
               <i class="bi bi-person-fill-add"></i> Crear Usuario</a>
           </li>
         }
       </ul>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAuth">
-      <span class="nav-item nav-link text-secondary">
+      <span class="nav-item nav-link">
         @if(login.isAuth){
-          {{login.user.userName}}
-          <button class="btn btn-outline-secondary ms-2" (click)="handlerLogout()">Cerrar Sesión</button> 
+          <div class="dropdown">
+            <button role="button" class="btn btn-outline-light fw-semibold"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{login.user.username}} <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu" style="cursor: pointer; font-size: smaller;">
+              <li><a class="dropdown-item fw-semibold" [routerLink]="['/users/user/', login.user.username]"><i class="bi bi-postcard"></i> Cuenta</a></li>
+              <li><a class="dropdown-item fw-semibold" (click)="handlerLogout()"><i class="bi bi-arrow-return-left"></i> Cerrar Sesión</a></li>
+            </ul>
+          </div>          
         }@else{
-          <a class="btn btn-outline-secondary" [routerLink]="['/login']">Iniciar Sesión</a>
+          <a class="btn btn-outline-light button-animation" [routerLink]="['/login']">Iniciar Sesión</a>
         }
       </span>
     </div>
