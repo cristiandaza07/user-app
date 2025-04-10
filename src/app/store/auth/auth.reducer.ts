@@ -26,6 +26,4 @@ export const authReducer = createReducer(
             user: undefined
         }
     ))
-    //Tambien se puede hacer el 'logout' de esta forma:
-    //on(logout, (state)=> ({... initialLogin}))
 )

@@ -1,12 +1,129 @@
 :root{
-    --principal: #CCD5AE;
-    --fondo: #051923;
+    --principal: #051923;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .appearance{
-    background-color: var(--fondo);
+    background-color: var(--principal);
     font-family:Arial, Helvetica, sans-serif;
 }
+
+.ocultar-en-movil {
+    display: none;
+}
+
+/*POSICION DE ELEMENTOS*/
+
+.container-fluid_authenticated {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 40px 70px 1fr 80px;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "logo"
+        "navbar"
+        "content"
+        "footer";
+}
+
+.container-fluid_unauthenticated {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 40px 1fr 80px;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "logo"
+        "content"
+        "footer";
+}
+
+.logo{
+    grid-area: logo;
+    text-align: center;
+}
+
+navbar{
+    grid-area: navbar;
+    position: sticky;
+    right: 0;
+    top: 0;
+    background-color: #051923;
+}
+
+.content {
+    grid-area: content;
+}
+
+footer {
+    grid-area: footer;
+}
+
+.hide-navbar{
+    display: none;
+}
+
+/*--------------------------------VERSION ESCRITORIO-----------------------------------*/
+
+@media (min-width: 768px) {
+
+    .ocultar-en-movil {
+        display: block;
+    }
+
+    .container-fluid_authenticated {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 250px auto;
+        grid-template-rows: 40px 1fr 80px;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+            "logo   logo"
+            "navbar content"
+            "navbar footer"
+    }
+
+    .container-fluid_unauthenticated {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 40px 1fr 80px;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+            "logo"
+            "content"
+            "footer"
+    }
+
+    .logo{
+        grid-area: logo;
+        text-align: start;
+        padding-left: 20px;
+    }
+    
+    navbar {
+        grid-area: navbar;
+    }
+    
+    .content {
+        grid-area: content;
+    }
+    
+    footer {
+        grid-area: footer;
+    }
+}
+
+/*------------------------------------*/
+
 
 .abrir-modal {
     background-color: rgba(0, 0, 0, 0.7);
@@ -54,9 +171,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    /* O el color de fondo que prefieras */
     z-index: 100;
-    /* Asegura que esté por encima de otros elementos */
 }
 
 .sombra-inferior{

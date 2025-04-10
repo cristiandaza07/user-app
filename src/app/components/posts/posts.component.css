@@ -1,0 +1,19 @@
+.card-header, .card-footer{
+    background-color: #07202d;
+}
+
+.card-body{
+    background-color: #051923;
+}
+
+.content-break {
+    word-break: break-word;
+}
+
+.card a, .card button{
+    color: whitesmoke;
+}
+
+.card a:hover, .card button:hover{
+    color: rgba(255, 255, 255, 0.624);
+}

@@ -1,0 +1,35 @@
+<div class="col my-2">
+        <div class="row mx-1">
+            @if (paginator.empty) {
+                <span class="badge text-bg-secondary mb-3">No hay comentarios para mostrar...</span>
+            }@else {
+                <ul class="list-unstyled text-white">
+                    @for (comment of comments; track $index) {
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-white mb-1"><span class="fw-semibold">{{comment.userComment.name}} {{comment.userComment.lastName}}: </span>{{comment.content}}</p>
+                                <p class="ms-2 fw-semibold mb-1">{{comment.commentDate | date: 'dd/MM/yyyy'}}</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+        <div class="row">
+            <form class="d-flex justify-content-between" (ngSubmit)="createComment(commentForm)" #commentForm="ngForm">
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm me-2" 
+                    placeholder="Escribe un comentario..." 
+                    name="comment"
+                    id="comment"
+                    [(ngModel)]="comment.content" 
+                    #commentInput="ngModel"
+                    maxlength="250"
+                    minlength="1"
+                    required
+                >
+                <button class="btn btn-primary btn-sm" type="submit" style="width: 44px;" [disabled]="commentForm.invalid"><i class="bi bi-send-fill"></i></button>
+            </form>
+        </div>
+</div>

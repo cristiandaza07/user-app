@@ -11,6 +11,10 @@ import { UsersEffects } from './store/users/users.effects';
 import { authReducer } from './store/auth/auth.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AuthEffects } from './store/auth/auth.effects';
+import { postsReducer } from './store/posts/posts.reducer';
+import { PostsEffects } from './store/posts/posts.effects';
+import { commentsReducer } from './store/commets/comments.reducer';
+import { CommentsEffects } from './store/commets/comments.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,10 +22,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideStore({
-        users: usersReducer,
-        auth: authReducer
+      comments: commentsReducer,
+      users: usersReducer,
+      posts: postsReducer,
+      auth: authReducer
     }),
-    provideEffects(UsersEffects, AuthEffects),
+    provideEffects(UsersEffects, PostsEffects, CommentsEffects, AuthEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ],
 };

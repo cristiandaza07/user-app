@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
-//Intercepta las peticiones HTTP para pasarle el token
+//Intercepta las peticiones HTTP para pasarle al encabezado el token
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = inject(AuthService).token;

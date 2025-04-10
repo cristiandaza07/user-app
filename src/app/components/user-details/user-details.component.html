@@ -10,7 +10,7 @@
                             <span class="badge rounded-pill text-bg-secondary">Usuario</span>
                         }
                     </div>
-                    <img src="https://randomuser.me/api/portraits/men/14.jpg" width="100" class="rounded-circle">
+                    <h1><i class="bi bi-person-bounding-box"></i></h1>
                 </div>
                 <div class="text-center mt-3">
                     <h5 class="mt-2 mb-0 fw-semibold">{{user.name}} {{user.lastName}}</h5>
@@ -20,7 +20,11 @@
                             digital experiences. Aims to create meaningful stories through design.</p>
                     </div>
                 </div>
+
+                
             </div>
+            <button type="button" class="btn btn-outline-light btn-sm mt-2 w-100" (click)="logout()">Cerrar Sesión</button>
         </div>
+
     </div>
 

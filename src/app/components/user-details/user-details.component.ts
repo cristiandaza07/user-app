@@ -3,7 +3,7 @@ import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
 import { find, findByUsername } from '../../store/users/users.actions';
 import { AuthService } from '../../services/auth.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'user-details',
@@ -17,6 +17,7 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private router: Router,
     private store: Store<{ users: any }>
   ) {
     this.user = new User();
@@ -30,5 +31,10 @@ export class UserDetailsComponent implements OnInit {
     this.store.dispatch(
       findByUsername({ username: this.userLogin.user.username })
     );
+  }
+
+  logout() {
+    this.authService.logout()
+    this.router.navigate(['/login']);
   }
 }

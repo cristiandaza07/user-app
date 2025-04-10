@@ -3,3 +3,8 @@
     background-color: #051923;
 
 }
+
+.page-link:hover{
+    color: #051923;
+    background-color: white;
+}

@@ -28,7 +28,6 @@ export class AuthComponent {
         'error'
       );
     } else {
-      console.log(this.user)
       this.store.dispatch(login({ userName: this.user.userName, password: this.user.password }));
     }
   }
